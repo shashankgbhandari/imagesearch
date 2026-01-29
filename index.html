@@ -1,22 +1,54 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>PhotoSearch Engine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Floating background shapes -->
+    <div class="floating-shapes">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
     <div class="container">
-        <h1>Find Your Inspiration</h1>
+
+        <h1>🔍 PhotoSearch Engine</h1>
+        <p class="subtitle">Search & download high-quality images instantly</p>
+
+        <div class="scroll-indicator">⬇ Scroll</div>
+
+        <!-- Search box (UNCHANGED IDS) -->
         <div class="search-box">
             <input type="text" id="search-input" placeholder="Search for cats, mountains, code...">
             <button id="search-btn">Search</button>
         </div>
 
+        <!-- Extra attractive feature cards -->
+        <div class="features">
+            <div class="feature-card">⚡ Fast Search</div>
+            <div class="feature-card">🖼 HD Images</div>
+            <div class="feature-card">⬇ Free Download</div>
+        </div>
+
+        <!-- Results (JS USES THIS ID) -->
         <div class="search-results" id="search-results"></div>
-        
+
+        <!-- Show more (JS USES THIS ID) -->
         <button id="show-more-btn">Show More</button>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 PhotoSearch Engine | Powered by Unsplash API</p>
+        </footer>
+
     </div>
 
+    <!-- JS FILE REMAINS SAME -->
     <script src="script.js"></script>
 </body>
 </html>
