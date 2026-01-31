@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>PhotoSearch Engine</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-<!-- Animated Background -->
 <div class="bg-animation">
     <span></span><span></span><span></span><span></span>
 </div>
@@ -17,35 +16,35 @@
     <h1>🔍 PhotoSearch Engine</h1>
     <p class="subtitle">Search, preview & download high-quality images</p>
 
-    <!-- Search Box -->
     <div class="search-box">
-        <input type="text" id="search-input" placeholder="Search images...">
+        <input type="text" id="search-input" placeholder="Search images…">
         <button id="search-btn">Search</button>
+
+        <div class="quick-suggestions" id="quickSuggestions">
+            <div class="qs-item" data-key="Nature">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=100">
+                <span>Nature</span>
+            </div>
+            <div class="qs-item" data-key="Technology">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=100">
+                <span>Technology</span>
+            </div>
+            <div class="qs-item" data-key="Travel">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=100">
+                <span>Travel</span>
+            </div>
+            <div class="qs-item" data-key="People">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100">
+                <span>People</span>
+            </div>
+        </div>
     </div>
 
-    <!-- Trending -->
-    <div class="trending">
-        <span data-key="Nature">Nature</span>
-        <span data-key="Technology">Technology</span>
-        <span data-key="Space">Space</span>
-        <span data-key="Education">Education</span>
-        <span data-key="AI">AI</span>
-    </div>
-
-    <!-- Zero Result State -->
     <div class="zero-state" id="zeroState">
         <h2>No results found 😕</h2>
-        <p>Did you mean?</p>
-        <div class="did-you-mean">
-            <span data-key="Nature">Nature</span>
-            <span data-key="Travel">Travel</span>
-            <span data-key="People">People</span>
-            <span data-key="Technology">Technology</span>
-        </div>
-        <p class="hint">Explore trending images to stay inspired ✨</p>
+        <p>Try another keyword</p>
     </div>
 
-    <!-- Results -->
     <div class="search-results" id="search-results"></div>
 
     <button id="show-more-btn">Show More</button>
@@ -55,13 +54,12 @@
     </footer>
 </div>
 
-<!-- Image Preview Modal -->
 <div class="image-modal" id="imageModal">
     <span class="close-modal" id="closeModal">&times;</span>
     <img id="modalImg">
-    <a id="downloadBtn" download target="_blank">⬇ Download</a>
+    <a id="downloadBtn">⬇ Download</a>
 </div>
 
-<script src="script.js"></script>
+<script src="./script.js"></script>
 </body>
 </html>
