@@ -8,46 +8,60 @@
 </head>
 <body>
 
-    <!-- Floating background shapes -->
-    <div class="floating-shapes">
-        <span></span>
-        <span></span>
-        <span></span>
+<!-- Animated Background -->
+<div class="bg-animation">
+    <span></span><span></span><span></span><span></span>
+</div>
+
+<div class="container">
+    <h1>🔍 PhotoSearch Engine</h1>
+    <p class="subtitle">Search, preview & download high-quality images</p>
+
+    <!-- Search Box -->
+    <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search images...">
+        <button id="search-btn">Search</button>
     </div>
 
-    <div class="container">
-
-        <h1>🔍 PhotoSearch Engine</h1>
-        <p class="subtitle">Search & download high-quality images instantly</p>
-
-        <div class="scroll-indicator">⬇ Scroll</div>
-
-        <!-- Search box (UNCHANGED IDS) -->
-        <div class="search-box">
-            <input type="text" id="search-input" placeholder="Search for cats, mountains, code...">
-            <button id="search-btn">Search</button>
-        </div>
-
-        <!-- Extra attractive feature cards -->
-        <div class="features">
-            <div class="feature-card">⚡ Fast Search</div>
-            <div class="feature-card">🖼 HD Images</div>
-            <div class="feature-card">⬇ Free Download</div>
-        </div>
-
-        <!-- Results (JS USES THIS ID) -->
-        <div class="search-results" id="search-results"></div>
-
-        <!-- Show more (JS USES THIS ID) -->
-        <button id="show-more-btn">Show More</button>
-
-        <!-- Footer -->
-        <footer>
-            <p>© 2026 PhotoSearch Engine | Powered by Unsplash API</p>
-        </footer>
-
+    <!-- Trending -->
+    <div class="trending">
+        <span data-key="Nature">Nature</span>
+        <span data-key="Technology">Technology</span>
+        <span data-key="Space">Space</span>
+        <span data-key="Education">Education</span>
+        <span data-key="AI">AI</span>
     </div>
-        <!-- JS FILE REMAINS SAME -->
-    <script src="script.js"></script>
+
+    <!-- Zero Result State -->
+    <div class="zero-state" id="zeroState">
+        <h2>No results found 😕</h2>
+        <p>Did you mean?</p>
+        <div class="did-you-mean">
+            <span data-key="Nature">Nature</span>
+            <span data-key="Travel">Travel</span>
+            <span data-key="People">People</span>
+            <span data-key="Technology">Technology</span>
+        </div>
+        <p class="hint">Explore trending images to stay inspired ✨</p>
+    </div>
+
+    <!-- Results -->
+    <div class="search-results" id="search-results"></div>
+
+    <button id="show-more-btn">Show More</button>
+
+    <footer>
+        © 2026 PhotoSearch Engine | Powered by Unsplash API
+    </footer>
+</div>
+
+<!-- Image Preview Modal -->
+<div class="image-modal" id="imageModal">
+    <span class="close-modal" id="closeModal">&times;</span>
+    <img id="modalImg">
+    <a id="downloadBtn" download target="_blank">⬇ Download</a>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

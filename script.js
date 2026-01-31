@@ -1,104 +1,84 @@
-const accessKey = "VabElu27DhmD2xrLG6AM24g_k0nou44ADW-I-9YXqdk"; 
+const accessKey = "VabElu27DhmD2xrLG6AM24g_k0nou44ADW-I-9YXqdk";
 
-const searchForm = document.getElementById("search-box");
 const searchInput = document.getElementById("search-input");
-const searchResult = document.getElementById("search-results");
-const showMoreBtn = document.getElementById("show-more-btn");
 const searchBtn = document.getElementById("search-btn");
+const results = document.getElementById("search-results");
+const showMoreBtn = document.getElementById("show-more-btn");
+const zeroState = document.getElementById("zeroState");
+
+const modal = document.getElementById("imageModal");
+const modalImg = document.getElementById("modalImg");
+const downloadBtn = document.getElementById("downloadBtn");
+const closeModal = document.getElementById("closeModal");
 
 let keyword = "";
 let page = 1;
 
-async function searchImages() {
-    keyword = searchInput.value;
+async function fetchImages() {
     const url = `https://api.unsplash.com/search/photos?page=${page}&query=${keyword}&client_id=${accessKey}&per_page=12`;
+    const res = await fetch(url);
+    const data = await res.json();
 
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if(page === 1){
-        searchResult.innerHTML = "";
+    if (page === 1) {
+        results.innerHTML = "";
+        zeroState.style.display = "none";
     }
 
-    const results = data.results;
+    if (data.results.length === 0 && page === 1) {
+        zeroState.style.display = "block";
+        showMoreBtn.style.display = "none";
+        return;
+    }
 
-    results.map((result) => {
-        const imageWrapper = document.createElement('div');
-        imageWrapper.classList.add("search-result");
-        
-        const image = document.createElement('img');
-        image.src = result.urls.small;
-        image.alt = result.alt_description;
-        
-        // Container for links and buttons
-        const buttonContainer = document.createElement('div');
-        buttonContainer.classList.add("button-container");
-
-        // The View Link
-        const imageLink = document.createElement('a');
-        imageLink.href = result.links.html;
-        imageLink.target = "_blank";
-        imageLink.textContent = "View on Unsplash";
-
-        // The Download Button
-        const downloadBtn = document.createElement('button');
-        downloadBtn.classList.add("download-btn");
-        downloadBtn.textContent = "Download";
-        
-        // Add click event to trigger download
-        downloadBtn.addEventListener('click', () => {
-            downloadImage(result.urls.full, result.id); // Downloading the Full resolution image
-        });
-
-        buttonContainer.appendChild(imageLink);
-        buttonContainer.appendChild(downloadBtn);
-
-        imageWrapper.appendChild(image);
-        imageWrapper.appendChild(buttonContainer);
-        searchResult.appendChild(imageWrapper);
+    data.results.forEach(img => {
+        const image = document.createElement("img");
+        image.src = img.urls.small;
+        image.dataset.full = img.urls.full;
+        image.dataset.download = img.links.download;
+        results.appendChild(image);
     });
+
     showMoreBtn.style.display = "block";
 }
 
-// Function to handle the actual downloading
-async function downloadImage(imgUrl, imgName) {
-    try {
-        const response = await fetch(imgUrl);
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        // Suggest a filename
-        a.download = `photo-${imgName}.jpg`; 
-        
-        document.body.appendChild(a);
-        a.click();
-        
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-    } catch (error) {
-        console.error('Download failed:', error);
-        alert("Could not download image. It might be blocked by CORS policy.");
-    }
+/* Start Search */
+function startSearch() {
+    keyword = searchInput.value.trim();
+    if (!keyword) return;
+    page = 1;
+    fetchImages();
 }
 
-searchBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    page = 1;
-    searchImages();
-});
+searchBtn.onclick = startSearch;
 
-searchInput.addEventListener("keypress", (e) => {
+/* ENTER key */
+searchInput.addEventListener("keydown", e => {
     if (e.key === "Enter") {
-        e.preventDefault();
-        page = 1;
-        searchImages();
+        startSearch();
     }
 });
 
-showMoreBtn.addEventListener("click", () => {
+/* Show More */
+showMoreBtn.onclick = () => {
     page++;
-    searchImages();
+    fetchImages();
+};
+
+/* Image Modal */
+results.onclick = e => {
+    if (e.target.tagName === "IMG") {
+        modal.style.display = "flex";
+        modalImg.src = e.target.dataset.full;
+        downloadBtn.href = e.target.dataset.download;
+    }
+};
+
+closeModal.onclick = () => modal.style.display = "none";
+
+/* Trending & Did You Mean */
+document.addEventListener("click", e => {
+    if (e.target.dataset.key) {
+        searchInput.value = e.target.dataset.key;
+        startSearch();
+    }
 });
